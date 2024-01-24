@@ -1,9 +1,8 @@
 return {
 {
     "nvim-neo-tree/neo-tree.nvim",
-    cmd = "Neotree", -- Lazy-load on command
-    event = "VimEnter",
     branch = "v3.x",
+    event = "VimEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -17,11 +16,12 @@ return {
 	    require('neo-tree').setup {
   		  filesystem = {
     			filtered_items = {
+            visible = true,
       			hide_dotfiles = false,
+            hide_gitignored = true,
     			},
   		  },
 	    }
     end
   },
 }
-
