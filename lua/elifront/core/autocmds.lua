@@ -1,6 +1,1 @@
--- vim.api.nvim_create_autocmd("VimEnter", {
---     pattern = "*",
---     callback = function()
---         require("neo-tree").toggle()
---     end,
--- })
+
