@@ -76,6 +76,12 @@ return {
       on_attach = on_attach,
     })
 
+    -- configure java server
+    lspconfig["jdtls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
     -- configure typescript server with plugin
     lspconfig["tsserver"].setup({
       capabilities = capabilities,
@@ -86,6 +92,17 @@ return {
     lspconfig["cssls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+      settings = {
+        css = { validate = true, lint = {
+          unknownAtRules = "ignore",
+        } },
+        scss = { validate = true, lint = {
+          unknownAtRules = "ignore",
+        } },
+        less = { validate = true, lint = {
+          unknownAtRules = "ignore",
+        } },
+      },
     })
 
     -- configure tailwindcss server
@@ -135,6 +152,19 @@ return {
     lspconfig["pyright"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+    })
+
+    -- configure rust server
+    lspconfig["rust_analyzer"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure glsl server
+    lspconfig["glsl_analyzer"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      filetypes = { "glsl", "vert", "frag" },
     })
 
     -- configure lua server (with special settings)

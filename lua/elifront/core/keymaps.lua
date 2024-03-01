@@ -14,3 +14,8 @@ keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 
 -- <leader>th for terminal horizontal
 keymap.set("n", "<leader>th", ":rightbelow split | terminal<CR>", { desc = "Horizontal" })
+
+-- control ' to close current window
+keymap.set({ "n", "i" }, "<C-'>", ":close<CR>", { desc = "Close Window" })
+
+keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })

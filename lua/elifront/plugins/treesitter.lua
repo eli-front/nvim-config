@@ -12,6 +12,7 @@ return {
       autotag = { enable = true },
       ensure_installed = {
         "json",
+        "java",
         "javascript",
         "typescript",
         "tsx",
@@ -29,6 +30,7 @@ return {
         "dockerfile",
         "gitignore",
         "query",
+        "glsl",
       },
     },
     config = function(_, opts)

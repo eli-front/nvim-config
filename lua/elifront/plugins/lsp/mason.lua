@@ -27,6 +27,7 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
+        "jdtls",
         "tsserver",
         "html",
         "cssls",
@@ -37,6 +38,9 @@ return {
         "emmet_ls",
         "prismals",
         "pyright",
+        -- rust
+        "rust_analyzer",
+        "glsl_analyzer",
       },
       -- auto-install configured servers (with lspconfig)
       automatic_installation = true, -- not the same as ensure_installed
