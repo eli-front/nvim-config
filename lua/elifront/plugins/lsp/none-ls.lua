@@ -1,8 +1,8 @@
 return {
   "nvimtools/none-ls.nvim", -- configure formatters & linters
-  lazy = true,
-  -- event = { "BufReadPre", "BufNewFile" }, -- to enable uncomment this
+  event = { "BufReadPre", "BufNewFile" }, -- to enable uncomment this
   dependencies = {
+    "jose-elias-alvarez/null-ls.nvim",
     "jay-babu/mason-null-ls.nvim",
   },
   config = function()
@@ -26,6 +26,7 @@ return {
     -- for conciseness
     local formatting = null_ls.builtins.formatting -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+    local code_actions = null_ls.builtins.code_actions
 
     -- to setup format on save
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -46,10 +47,14 @@ return {
         formatting.black,
         formatting.rustfmt, -- rust formatter
         diagnostics.pylint,
-        diagnostics.eslint_d.with({ -- js/ts linter
-          condition = function(utils)
-            return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
-          end,
+        diagnostics.eslint_d.with({
+          -- specify eslint_d options here
+        }),
+        code_actions.eslint_d.with({
+          -- specify eslint_d options here
+        }),
+        formatting.eslint_d.with({
+          -- specify eslint_d options here
         }),
       },
       -- configure format on save

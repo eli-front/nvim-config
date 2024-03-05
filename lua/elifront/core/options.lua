@@ -39,7 +39,7 @@ opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 
 -- fold method
 opt.foldlevel = 99 -- start with all folds open
-opt.foldmethod = "expr"
+opt.foldmethod = "indent" -- fold based on indent level
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldtext = "v:lua.custom_fold_text()"
 opt.fillchars = {

@@ -38,6 +38,7 @@ return {
         "emmet_ls",
         "prismals",
         "pyright",
+        "eslint",
         -- rust
         "rust_analyzer",
         "glsl_analyzer",
