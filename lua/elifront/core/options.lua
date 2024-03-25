@@ -51,3 +51,9 @@ opt.fillchars = {
   diff = "╱",
   eob = " ",
 }
+
+local handle = io.popen("which python3")
+local python3_path = handle:read("*a")
+handle:close()
+python3_path = python3_path:gsub("\n$", "")
+vim.g.python3_host_prog = python3_path

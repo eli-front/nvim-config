@@ -35,7 +35,7 @@ return {
       keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
       opts.desc = "See available code actions"
-      keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+      keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
       opts.desc = "Smart rename"
       keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
@@ -148,10 +148,22 @@ return {
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
 
+    local python_path = vim.g.python3_host_prog -- Use the configured Python path
+
     -- configure python server
     lspconfig["pyright"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "workspace",
+            useLibraryCodeForTypes = true,
+            pythonPath = python_path,
+          },
+        },
+      },
     })
 
     -- configure rust server
@@ -164,7 +176,7 @@ return {
     lspconfig["glsl_analyzer"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
-      filetypes = { "glsl", "vert", "frag" },
+      filetypes = { "glsl" },
     })
 
     -- configure lua server (with special settings)

@@ -11,7 +11,8 @@ return {
         mode = { "n", "v" },
         ["<leader>b"] = { name = "+buffer" },
         ["<leader>f"] = { name = "+file/find" },
-        ["<leader>c"] = { name = "+code" },
+        ["<leader>l"] = { name = "+lsp" },
+        ["<leader>c"] = { name = "+clipboard" },
       },
     },
     config = function(_, opts)
