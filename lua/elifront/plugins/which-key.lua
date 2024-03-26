@@ -14,6 +14,9 @@ return {
         ["<leader>l"] = { name = "+lsp" },
         ["<leader>c"] = { name = "+clipboard" },
         ["<leader>g"] = { name = "+git" },
+        ["<leader>gd"] = { name = "+git-diff" },
+        ["<leader>gh"] = { name = "+git-hunk" },
+        ["<leader>p"] = { name = "+python" },
       },
     },
     config = function(_, opts)
