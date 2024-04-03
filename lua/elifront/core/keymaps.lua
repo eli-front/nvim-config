@@ -39,4 +39,22 @@ keymap.set("n", "<leader>gm", ":MergetoolToggle<CR>", { desc = "Toggle Mergetool
 keymap.set("n", "<leader>gds", ":Gvdiffsplit<CR>", { desc = "Git Diff" })
 keymap.set("n", "<leader>gdv", ":DiffviewOpen<CR>", { desc = "Open Diffview" })
 keymap.set("n", "<leader>gdc", ":DiffviewClose<CR>", { desc = "Close Diffview" })
-keymap.set("n", "<leader>dvh", ":DiffviewFileHistory %<CR>", { desc = "File History" })
+keymap.set("n", "<leader>gdh", ":DiffviewFileHistory %<CR>", { desc = "File History" })
+
+-- docker shortcuts
+-- the current working directory is located within /Documents/kicker/...
+local is_in_kicker = vim.fn.getcwd():find("kicker") ~= nil
+local doppler = is_in_kicker and "doppler run -- " or ""
+-- run bash command docker compose up -d or if in kicker run doppler run -- docker compose up -d
+keymap.set("n", "<leader>dc", ":! " .. doppler .. "docker compose up -d<CR>", { desc = "Docker Compose Up" })
+-- docker up build
+keymap.set(
+  "n",
+  "<leader>db",
+  ":! " .. doppler .. "docker compose up --build -d<CR>",
+  { desc = "Docker Compose Up Build" }
+)
+-- docker compose down
+keymap.set("n", "<leader>dd", ":! " .. doppler .. "docker compose down<CR>", { desc = "Docker Compose Down" })
+-- docker prune
+keymap.set("n", "<leader>dp", ":! docker system prune -f<CR>", { desc = "Docker Prune" })

@@ -70,6 +70,19 @@ return {
         end,
         desc = "Delete all other buffers",
       },
+      -- force delete all buffers but current
+      {
+        "<leader>bA",
+        function()
+          local current = vim.fn.bufnr()
+          for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+            if buf.bufnr ~= current then
+              vim.cmd(("bdelete! %d"):format(buf.bufnr))
+            end
+          end
+        end,
+        desc = "Delete all other buffers (force)",
+      },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])

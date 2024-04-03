@@ -9,6 +9,7 @@ return {
     opts = {
       defaults = {
         mode = { "n", "v" },
+        ["<leader>"] = { name = "+which-key" },
         ["<leader>b"] = { name = "+buffer" },
         ["<leader>f"] = { name = "+file/find" },
         ["<leader>l"] = { name = "+lsp" },
@@ -17,6 +18,7 @@ return {
         ["<leader>gd"] = { name = "+git-diff" },
         ["<leader>gh"] = { name = "+git-hunk" },
         ["<leader>p"] = { name = "+python" },
+        ["<leader>d"] = { name = "+docker" },
       },
     },
     config = function(_, opts)
