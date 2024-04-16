@@ -28,6 +28,37 @@ return {
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
     local code_actions = null_ls.builtins.code_actions
 
+    local eslint_config_exists = function()
+      local eslint_files = { ".eslintrc.js", ".eslintrc.json", ".eslintrc.yml", ".eslintrc.yaml" }
+      for _, file in ipairs(eslint_files) do
+        if vim.fn.filereadable(vim.fn.getcwd() .. "/" .. file) == 1 then
+          return true
+        end
+      end
+      return false
+    end
+
+    local sources = {
+      formatting.prettier.with({
+        extra_filetypes = { "svelte" },
+        timeout = 10000,
+      }),
+      formatting.stylua,
+      formatting.isort,
+      formatting.black,
+      formatting.rustfmt,
+    }
+
+    if eslint_config_exists() then
+      table.insert(
+        sources,
+        diagnostics.eslint_d.with({
+          timeout = 10000,
+        })
+      )
+      table.insert(sources, code_actions.eslint_d.with({}))
+    end
+
     -- to setup format on save
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -37,30 +68,7 @@ return {
       -- add package.json as identifier for root (for typescript monorepos)
       root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git", "package.json"),
       -- setup formatters & linters
-      sources = {
-        --  to disable file types use
-        --  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
-        formatting.prettier.with({
-          extra_filetypes = { "svelte" },
-          timeout = 10000,
-        }), -- js/ts formatter
-        formatting.stylua, -- lua formatter
-        formatting.isort,
-        formatting.black,
-        formatting.rustfmt, -- rust formatter
-        -- diagnostics.pylint.with({}),
-        diagnostics.eslint_d.with({
-          -- specify eslint_d options here
-          timeout = 10000,
-        }),
-        code_actions.eslint_d.with({
-          -- specify eslint_d options here
-        }),
-        -- formatting.eslint_d.with({
-        --   -- specify eslint_d options here
-        --   timeout = 10000,
-        -- }),
-      },
+      sources = sources,
       -- configure format on save
       on_attach = function(current_client, bufnr)
         if current_client.supports_method("textDocument/formatting") then

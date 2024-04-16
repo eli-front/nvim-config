@@ -5,6 +5,7 @@ return {
     opts = function()
       return {
         options = {
+          -- theme = "kanagawa",
           theme = "tokyonight",
         },
         sections = {

@@ -58,3 +58,7 @@ keymap.set(
 keymap.set("n", "<leader>dd", ":! " .. doppler .. "docker compose down<CR>", { desc = "Docker Compose Down" })
 -- docker prune
 keymap.set("n", "<leader>dp", ":! docker system prune -f<CR>", { desc = "Docker Prune" })
+
+-- turn off/on copilot
+keymap.set("n", "<leader>cq", ":CopilotStop<CR>", { desc = "Copilot Stop" })
+keymap.set("n", "<leader>cs", ":CopilotStart<CR>", { desc = "Copilot Start" })

@@ -1,15 +1,19 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
+    -- event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     opts = {
-      highlight = { enable = true },
-      indent = { enable = true },
-      autotag = { enable = true },
+      auto_install = true,
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+      -- indent = { enable = true },
+      -- autotag = { enable = true },
       ensure_installed = {
         "json",
         "java",
@@ -19,6 +23,7 @@ return {
         "yaml",
         "html",
         "css",
+        "c",
         "prisma",
         "markdown",
         "markdown_inline",
@@ -27,10 +32,12 @@ return {
         "bash",
         "lua",
         "vim",
+        "vimdoc",
         "dockerfile",
         "gitignore",
         "query",
         "glsl",
+        "norg",
       },
     },
     config = function(_, opts)
@@ -47,6 +54,7 @@ return {
       end
 
       require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter.install").compilers = { "gcc-12" }
     end,
   },
 }

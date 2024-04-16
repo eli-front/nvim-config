@@ -19,6 +19,7 @@ return {
         ["<leader>gh"] = { name = "+git-hunk" },
         ["<leader>p"] = { name = "+python" },
         ["<leader>d"] = { name = "+docker" },
+        ["<leader>n"] = { name = "+notes" },
       },
     },
     config = function(_, opts)

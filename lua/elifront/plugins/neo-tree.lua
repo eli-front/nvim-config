@@ -96,6 +96,12 @@ return {
             hide_gitignored = true,
           },
         },
+        window = {
+          position = "left",
+          mappings = {
+            ["<space>"] = "none",
+          },
+        },
       })
     end,
   },

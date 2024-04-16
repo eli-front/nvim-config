@@ -15,6 +15,7 @@ return {
         javascript = { { "prettierd", "prettier" } },
 
         java = { "google-java-format" },
+        norg = {},
       },
     },
     config = true,

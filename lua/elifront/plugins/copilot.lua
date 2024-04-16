@@ -9,6 +9,7 @@ return {
       filetypes = {
         markdown = true,
         help = true,
+        norg = false,
       },
     },
   },

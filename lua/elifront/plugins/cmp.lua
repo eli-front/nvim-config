@@ -19,7 +19,20 @@ return {
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
 
+    local invalid_filetypes = {
+      "norg",
+    }
+
     cmp.setup({
+      enabled = function()
+        local ft = vim.bo.filetype
+        for _, invalid_ft in ipairs(invalid_filetypes) do
+          if ft == invalid_ft then
+            return false
+          end
+        end
+        return true
+      end,
       completion = {
         completeopt = "menu,menuone,preview,noselect",
       },

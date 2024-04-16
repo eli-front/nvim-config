@@ -14,7 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
   { { import = "elifront.plugins.lsp" }, { import = "elifront.plugins" }, { import = "elifront.plugins.git" } },
   {
-    install = { colorscheme = { "tokyonight" } },
+    install = {
+      -- colorscheme = { "kanagawa" },
+      colorscheme = { "tokyonight" },
+    },
     checker = {
       enabled = true,
       notify = false,
