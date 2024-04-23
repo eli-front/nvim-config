@@ -2,6 +2,7 @@ local directories = {
   notes = "~/notes",
   househunt = "~/notes/househunt",
   carhunt = "~/notes/carhunt",
+  twistl = "~/notes/twistl",
 }
 
 return {

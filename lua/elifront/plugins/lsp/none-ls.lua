@@ -46,6 +46,7 @@ return {
       formatting.stylua,
       formatting.isort,
       formatting.black,
+      -- rust
       formatting.rustfmt,
     }
 
