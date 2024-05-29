@@ -41,7 +41,10 @@ return {
         "eslint",
         -- rust
         "rust_analyzer",
+        -- glsl
         "glsl_analyzer",
+        -- go
+        "gopls",
       },
       -- auto-install configured servers (with lspconfig)
       automatic_installation = true, -- not the same as ensure_installed
@@ -55,6 +58,7 @@ return {
         "black", -- python formatter
         "pylint", -- python linter
         "eslint_d", -- js linter
+        "glslls",
       },
     })
   end,

@@ -1,8 +1,9 @@
 local directories = {
   notes = "~/notes",
-  househunt = "~/notes/househunt",
-  carhunt = "~/notes/carhunt",
-  twistl = "~/notes/twistl",
+  daily = "~/notes/daily",
+  crm = "~/notes/crm",
+  projects = "~/notes/projects",
+  kicker = "~/notes/kicker",
 }
 
 return {
@@ -20,12 +21,24 @@ return {
         load = {
           ["core.defaults"] = {},
           ["core.concealer"] = {},
+          ["core.export"] = {
+            config = {
+              export_dir = "~/exported_notes", -- Define directory for exported files
+              extensions = "md", -- Default export extension
+            },
+          },
           ["core.dirman"] = {
             config = {
               workspaces = (function()
                 return directories
               end)(),
               default_workspace = "notes",
+            },
+          },
+          ["core.journal"] = {
+            config = {
+              workspace = "daily",
+              strategy = "nested",
             },
           },
         },
@@ -36,9 +49,51 @@ return {
     end,
     keys = (function()
       local keys = {}
+
+      -- export
+      table.insert(keys, {
+        "<leader>ne",
+        "<cmd>Neorg export<CR>",
+        desc = "Neorg export",
+      })
+
+      -- goto daily today journal
+      table.insert(keys, {
+        "<leader>njt",
+        "<cmd>Neorg journal today<CR>",
+        desc = "Neorg journal today",
+      })
+
+      -- goto daily yesterday journal
+      table.insert(keys, {
+        "<leader>njy",
+        "<cmd>Neorg journal yesterday<CR>",
+        desc = "Neorg journal yesterday",
+      })
+
+      -- goto daily tomorrow journal
+      table.insert(keys, {
+        "<leader>njm",
+        "<cmd>Neorg journal tomorrow<CR>",
+        desc = "Neorg journal tomorrow",
+      })
+
+      -- table of contents
+      table.insert(keys, {
+        "<leader>nco",
+        "<cmd>Neorg journal toc open<CR>",
+        desc = "Neorg open table of contents",
+      })
+
+      table.insert(keys, {
+        "<leader>ncm",
+        "<cmd>Neorg journal toc update<CR>",
+        desc = "Neorg update table of contents",
+      })
+
       for key, _ in pairs(directories) do
         table.insert(keys, {
-          "<leader>n" .. key:sub(1, 1),
+          "<leader>nw" .. key:sub(1, 1),
           "<cmd>Neorg workspace " .. key .. "<CR>",
           desc = "Neorg workspace " .. key,
         })

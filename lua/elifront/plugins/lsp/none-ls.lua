@@ -20,6 +20,10 @@ return {
         "pylint", -- python linter
         "eslint_d", -- js linter
         "rustfmt", -- rust formatter
+        "gofmt",
+        "goimports_reviser",
+        "golines",
+        "mojo-lsp-server",
       },
     })
 
@@ -38,16 +42,26 @@ return {
       return false
     end
 
+    local prettier_config_exists = function()
+      local prettier_files = { ".prettierrc", ".prettierrc.json", ".prettierrc.yml", ".prettierrc.yaml" }
+      for _, file in ipairs(prettier_files) do
+        if vim.fn.filereadable(vim.fn.getcwd() .. "/" .. file) == 1 then
+          return true
+        end
+      end
+      return false
+    end
+
     local sources = {
-      formatting.prettier.with({
-        extra_filetypes = { "svelte" },
-        timeout = 10000,
-      }),
       formatting.stylua,
       formatting.isort,
       formatting.black,
       -- rust
       formatting.rustfmt,
+      -- go
+      formatting.gofmt,
+      formatting.goimports_reviser,
+      formatting.golines,
     }
 
     if eslint_config_exists() then
@@ -58,6 +72,16 @@ return {
         })
       )
       table.insert(sources, code_actions.eslint_d.with({}))
+    end
+
+    if prettier_config_exists() then
+      table.insert(
+        sources,
+        formatting.prettier.with({
+          extra_filetypes = { "svelte" },
+          timeout = 10000,
+        })
+      )
     end
 
     -- to setup format on save

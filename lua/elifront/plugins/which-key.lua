@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 500
     end,
     opts = {
       defaults = {
@@ -20,6 +20,9 @@ return {
         ["<leader>p"] = { name = "+python" },
         ["<leader>d"] = { name = "+docker" },
         ["<leader>n"] = { name = "+notes" },
+        ["<leader>nj"] = { name = "+journal" },
+        ["<leader>nw"] = { name = "+workspaces" },
+        ["<leader>nc"] = { name = "+table-of-contents" },
       },
     },
     config = function(_, opts)

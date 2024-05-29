@@ -37,7 +37,9 @@ return {
         "gitignore",
         "query",
         "glsl",
+        "go",
         "norg",
+        "python",
       },
     },
     config = function(_, opts)
@@ -55,6 +57,8 @@ return {
 
       require("nvim-treesitter.configs").setup(opts)
       require("nvim-treesitter.install").compilers = { "gcc-12" }
+
+      require("nvim-treesitter.parsers").filetype_to_parsername.mojo = "python"
     end,
   },
 }

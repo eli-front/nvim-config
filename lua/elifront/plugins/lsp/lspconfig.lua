@@ -70,6 +70,8 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
+    local null_ls_utils = require("null-ls.utils")
+
     -- configure html server
     lspconfig["html"].setup({
       capabilities = capabilities,
@@ -184,6 +186,12 @@ return {
       filetypes = { "glsl" },
     })
 
+    lspconfig["glslls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      filetypes = { "glsl" },
+    })
+
     -- configure lua server (with special settings)
     lspconfig["lua_ls"].setup({
       capabilities = capabilities,
@@ -200,6 +208,22 @@ return {
               [vim.fn.expand("$VIMRUNTIME/lua")] = true,
               [vim.fn.stdpath("config") .. "/lua"] = true,
             },
+          },
+        },
+      },
+    })
+
+    lspconfig["gopls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      cmd = { "gopls" },
+      filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      root_dir = null_ls_utils.root_pattern("go.work", "go.mod", ".git"),
+      settings = {
+        gopls = {
+          completeUnimported = true,
+          analyses = {
+            unusedparams = true,
           },
         },
       },
