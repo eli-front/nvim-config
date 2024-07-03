@@ -1,5 +1,2 @@
-require("elifront.core.icons")
-require("elifront.core.utils")
-require("elifront.core.autocmds")
-require("elifront.core.options")
-require("elifront.core.keymaps")
+require("elifront.core.config")
+require("elifront.core.remap")
