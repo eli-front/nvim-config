@@ -6,16 +6,17 @@ return {
   config = function(_, _)
     require('tokyonight').setup({
       style = 'storm',
+      on_highlights = function(highlights, _)
+        highlights.Normal = { bg = "none" }
+        highlights.NormalFloat = { bg = "none" }
+        highlights.NormalNC = { bg = "none" }
+
+        -- telescope bg
+        highlights.TelescopeNormal = { bg = "none" }
+      end,
     })
 
-
-    vim.opt.termguicolors = true
     vim.cmd.colorscheme('tokyonight')
-
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, 'NormalFloat', { ctermbg = 'NONE', bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'FloatBorder', { ctermbg = 'NONE', bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'NONE' })
   end
 
 }

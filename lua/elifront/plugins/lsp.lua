@@ -24,6 +24,7 @@ return {
 
         vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts)
         vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
       end)
 
       require("mason").setup({})
