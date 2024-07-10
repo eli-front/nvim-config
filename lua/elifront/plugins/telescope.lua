@@ -21,6 +21,11 @@ return {
           },
         },
       },
+      pickers = {
+        find_files = {
+          find_command = { 'fd', '--type', 'f', '--hidden', '--follow', '--exclude', '.git/*', '--no-ignore-vcs' },
+        },
+      }
     })
 
     telescope.load_extension("fzf")
