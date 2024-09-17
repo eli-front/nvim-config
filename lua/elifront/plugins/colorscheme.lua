@@ -13,6 +13,9 @@ return {
 
         -- telescope bg
         highlights.TelescopeNormal = { bg = "none" }
+
+        -- unused import
+        highlights.DiagnosticUnnecessary = { fg = "#4e95a8" }
       end,
     })
 
