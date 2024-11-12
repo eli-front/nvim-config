@@ -5,12 +5,17 @@ return {
     require("oil").setup({
       default_file_explorer = true,
       columns = {
-        "icon"
+        "icon",
       },
       view_options = {
         show_hidden = true
       },
     })
+
+
+    -- OilGitIgnored
+
+
     vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { silent = true })
   end
 }

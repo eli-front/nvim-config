@@ -16,7 +16,7 @@ return {
     config = function()
       local lsp_zero = require("lsp-zero")
 
-      lsp_zero.on_attach(function(client, bufnr)
+      lsp_zero.on_attach(function(_client, bufnr)
         -- see :help lsp-zero-keybindings
         -- to learn the available actions
         lsp_zero.default_keymaps({ buffer = bufnr })
@@ -30,7 +30,7 @@ return {
 
       require("mason").setup({})
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "lua_ls", "tsserver", "clangd", "jsonls", "html", "cssls", "tailwindcss", "eslint", "emmet_ls", "rust_analyzer", "tflint", "terraformls" },
+        ensure_installed = { "pyright", "lua_ls", "ts_ls", "clangd", "jsonls", "html", "cssls", "tailwindcss", "eslint", "emmet_ls", "rust_analyzer", "tflint", "terraformls", "svelte" },
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({})
