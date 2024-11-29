@@ -30,7 +30,7 @@ return {
 
       require("mason").setup({})
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "lua_ls", "ts_ls", "clangd", "jsonls", "html", "cssls", "tailwindcss", "eslint", "emmet_ls", "rust_analyzer", "tflint", "terraformls", "svelte" },
+        ensure_installed = { "pyright", "lua_ls", "ts_ls", "clangd", "jsonls", "html", "cssls", "tailwindcss", "eslint", "emmet_ls", "rust_analyzer", "tflint", "terraformls", "svelte", "zls" },
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({})
