@@ -86,6 +86,11 @@ return {
                 },
               },
             })
+          end,
+          eslint = function()
+            require("lspconfig").eslint.setup({
+              cmd = { "eslint", "--stdin" }
+            })
           end
         },
       })
