@@ -16,6 +16,10 @@ return {
 
         -- unused import
         highlights.DiagnosticUnnecessary = { fg = "#4e95a8" }
+
+        -- git blame
+        -- highlights.GitBlame = { fg = "#4e95a8" }
+        highlights.GitBlame = { fg = "#4b506d", bg = "none" }
       end,
     })
 
