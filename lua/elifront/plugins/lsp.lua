@@ -36,21 +36,6 @@ return {
             require("lspconfig")[server_name].setup({})
           end,
           jsonls = function()
-            -- jsonls = {
-            --       -- lazy-load schemastore when needed
-            --       on_new_config = function(new_config)
-            --         new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            --         vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-            --       end,
-            --       settings = {
-            --         json = {
-            --           format = {
-            --             enable = true,
-            --           },
-            --           validate = { enable = true },
-            --         },
-            --       },
-            --     },
             require("lspconfig").jsonls.setup({
               settings = {
                 json = {
@@ -89,9 +74,31 @@ return {
           end,
           eslint = function()
             require("lspconfig").eslint.setup({
-              cmd = { "eslint", "--stdin" }
+              cmd = { "eslint", "--stdin" },
             })
-          end
+          end,
+          zls = function()
+            require("lspconfig").zls.setup({
+              settings = {
+                zls = {
+                  enable_build_on_save = true,
+                  build_on_save_step = "check",
+                  enable_snippets = true,
+                  enable_ast_check_diagnostics = true,
+                  enable_autofix = false,
+                  enable_import_embedfile_argument_completions = true,
+                  warn_style = true,
+                  enable_semantic_tokens = true,
+                  enable_inlay_hints = true,
+                  inlay_hints_hide_redundant_param_names = true,
+                  inlay_hints_hide_redundant_param_names_last_token = true,
+                  operator_completions = true,
+                  include_at_in_builtins = true,
+                  max_detail_length = 1048576,
+                },
+              },
+            })
+          end,
         },
       })
     end,
