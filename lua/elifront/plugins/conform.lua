@@ -4,7 +4,7 @@ return {
     opts = {
       format_on_save = {
         -- These options will be passed to conform.format()
-        timeout_ms = 500,
+        timeout_ms = 1000,
         lsp_fallback = true,
       },
       formatters_by_ft = {
@@ -14,7 +14,7 @@ return {
         -- Use a sub-list to run only the first available formatter
         javascript = { "prettierd", "prettier" },
         svelte = { "prettierd", "prettier" },
-
+        html = { "prettier" },
         java = { "google-java-format" },
         glsl = { "clang-format" },
         terraform = { "terraform_fmt" },
@@ -25,9 +25,9 @@ return {
     config = true,
   },
   {
-    'laytan/tailwind-sorter.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
-    build = 'cd formatter && npm ci && npm run build',
+    "laytan/tailwind-sorter.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
+    build = "cd formatter && npm ci && npm run build",
     config = true,
-  }
+  },
 }

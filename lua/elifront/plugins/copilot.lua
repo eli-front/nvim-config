@@ -11,7 +11,8 @@ return {
           markdown = true,
           help = true,
           toml = true,
-          oil = false
+          oil = false,
+          env = false,
         },
       })
     end,
@@ -20,7 +21,7 @@ return {
     "zbirenbaum/copilot-cmp",
     config = function()
       require("copilot_cmp").setup()
-    end
+    end,
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -40,12 +41,13 @@ return {
             size = { width = 50 },
           })
         end,
-      }
+      },
+      "stevearc/dressing.nvim", -- should checkout snacks.nvim
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     keys = {
-      { "<c-s>",     "<CR>", ft = "copilot-chat",    desc = "Submit Prompt", remap = true },
-      { "<leader>c", "",     desc = "+copilot-chat", mode = { "n", "v" } },
+      { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
+      { "<leader>c", "", desc = "+copilot-chat", mode = { "n", "v" } },
       {
         "<leader>cc",
         function()
@@ -99,8 +101,7 @@ return {
         end,
         desc = "Select Agent (CopilotChat)",
         mode = { "n", "v" },
-      }
-
+      },
     },
     opts = function()
       local user = vim.env.USER or "User"
@@ -114,9 +115,9 @@ return {
         },
         mappings = {
           close = {
-            insert = "<Esc>"
-          }
-        }
+            insert = "<Esc>",
+          },
+        },
       }
     end,
     config = function(_, opts)
@@ -132,5 +133,5 @@ return {
 
       chat.setup(opts)
     end,
-  }
+  },
 }

@@ -30,10 +30,50 @@ return {
 
       require("mason").setup({})
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "lua_ls", "ts_ls", "clangd", "jsonls", "html", "cssls", "tailwindcss", "eslint", "emmet_ls", "rust_analyzer", "tflint", "terraformls", "svelte", "zls" },
+        ensure_installed = {
+          "pyright",
+          "lua_ls",
+          "ts_ls",
+          "clangd",
+          "jsonls",
+          "html",
+          "cssls",
+          "tailwindcss",
+          "eslint",
+          "emmet_ls",
+          "rust_analyzer",
+          "tflint",
+          "terraformls",
+          "svelte",
+          "zls",
+          "intelephense",
+        },
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({})
+          end,
+          html = function()
+            require("lspconfig").html.setup({
+              filetypes = { "html", "php" },
+              settings = {
+                html = {
+                  format = {
+                    enable = false,
+                  },
+                  suggest = {
+                    completion = {
+                      enabled = true,
+                      emmet = true,
+                    },
+                  },
+                },
+              },
+            })
+          end,
+          tailwindcss = function()
+            require("lspconfig").tailwindcss.setup({
+              filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "php" },
+            })
           end,
           jsonls = function()
             require("lspconfig").jsonls.setup({
@@ -42,7 +82,7 @@ return {
                   format = {
                     enable = true,
                   },
-                  schemas = require('schemastore').json.schemas(),
+                  schemas = require("schemastore").json.schemas(),
                   validate = { enable = true },
                 },
               },
@@ -95,6 +135,35 @@ return {
                   operator_completions = true,
                   include_at_in_builtins = true,
                   max_detail_length = 1048576,
+                },
+              },
+            })
+          end,
+          intelephense = function()
+            require("lspconfig").intelephense.setup({
+              settings = {
+                intelephense = {
+                  stubs = {
+                    "wordpress",
+                    "bcmath",
+                    "bz2",
+                    "calendar",
+                    "Core",
+                    "curl",
+                    "date",
+                    "dom",
+                    "standard",
+                  },
+                },
+              },
+            })
+          end,
+          ts_ls = function()
+            require("lspconfig").ts_ls.setup({
+              init_options = {
+                preferences = {
+                  importModuleSpecifier = "non-relative",
+                  importModuleSpecifierPreference = "non-relative",
                 },
               },
             })

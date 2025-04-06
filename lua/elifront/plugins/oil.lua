@@ -1,6 +1,8 @@
 return {
-  'stevearc/oil.nvim',
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  "stevearc/oil.nvim",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
   config = function()
     -- helper function to parse output
     local function parse_output(proc)
@@ -55,7 +57,7 @@ return {
       default_file_explorer = true,
       columns = {
         "icon",
-        "git_status"
+        "git_status",
       },
       view_options = {
         show_hidden = true,
@@ -78,5 +80,5 @@ return {
     })
 
     vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { silent = true })
-  end
+  end,
 }
