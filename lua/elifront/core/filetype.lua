@@ -2,6 +2,7 @@ vim.filetype.add({
   extension = {
     mdx = "mdx",
     env = "env",
+    vars = "env",
   },
 })
 

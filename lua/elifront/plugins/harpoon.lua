@@ -1,6 +1,11 @@
 return {
   "ThePrimeagen/harpoon",
   config = function()
+    require("harpoon").setup({
+      menu = {
+        width = math.min(math.max(math.floor(vim.api.nvim_win_get_width(0) / 2), 50), vim.api.nvim_win_get_width(0)),
+      },
+    })
     local mark = require("harpoon.mark")
     local ui = require("harpoon.ui")
     vim.keymap.set("n", "<leader>ha", mark.add_file, { desc = "Add File" })
@@ -9,9 +14,17 @@ return {
     vim.keymap.set("n", "<leader>hp", ui.nav_prev, { desc = "Nav Prev" })
     vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
-    vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
-    vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
-    vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
-    vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
-  end
+    vim.keymap.set("n", "<C-h>", function()
+      ui.nav_file(1)
+    end)
+    vim.keymap.set("n", "<C-t>", function()
+      ui.nav_file(2)
+    end)
+    vim.keymap.set("n", "<C-n>", function()
+      ui.nav_file(3)
+    end)
+    vim.keymap.set("n", "<C-s>", function()
+      ui.nav_file(4)
+    end)
+  end,
 }
