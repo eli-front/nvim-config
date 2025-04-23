@@ -23,7 +23,14 @@ return {
 
         local opts = { buffer = bufnr }
 
-        vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts)
+        -- vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "<leader>ld", function()
+          vim.diagnostic.open_float(nil, {
+            focus = false,
+            source = true, -- <--- ensures the source is shown
+            header = "Diagnostics",
+          })
+        end, opts)
         vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
       end)
