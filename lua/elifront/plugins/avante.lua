@@ -5,15 +5,17 @@ return {
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
   opts = {
     provider = "copilot",
-    -- copilot = {
-    --   endpoint = "https://api.githubcopilot.com",
-    --   model = "claude-3.5-sonnet",
-    --   proxy = nil, -- [protocol://]host[:port] Use this proxy
-    --   allow_insecure = false, -- Allow insecure server connections
-    --   timeout = 30000, -- Timeout in milliseconds
-    --   temperature = 0,
-    --   max_tokens = 20480,
-    -- },
+    copilot = {
+      __inherited_from = "copilot",
+      endpoint = "https://api.githubcopilot.com",
+      model = "claude-3.5-sonnet",
+      display_name = "copilot/claude-3.5",
+      proxy = nil, -- [protocol://]host[:port] Use this proxy
+      allow_insecure = false, -- Allow insecure server connections
+      timeout = 30000, -- Timeout in milliseconds
+      temperature = 0,
+      max_tokens = 20480,
+    },
     vendors = {
       ["claude-3.7"] = {
         __inherited_from = "copilot",
