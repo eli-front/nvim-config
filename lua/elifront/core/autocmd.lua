@@ -7,13 +7,26 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   command = 'silent! normal! g`"zv',
 })
 
--- Prevent creating a file named ":w"
-vim.api.nvim_create_autocmd("BufWritePre", {
+-- Prevent writing to a file literally named ':w'
+vim.api.nvim_create_autocmd("BufWriteCmd", {
   desc = 'Prevent creating a file named ":w"',
   group = core_augroup,
-  pattern = ":w",
   callback = function()
-    vim.api.nvim_err_writeln('Error: Attempt to write a file named ":w" is prevented.')
-    vim.cmd("abort") -- Abort the write operation
+    local filename = vim.fn.expand("<afile>")
+    if filename == ":w" then
+      vim.notify('Error: Attempt to write a file named ":w" is prevented.', vim.log.levels.ERROR)
+      return -- Cancel the write operation
+    end
+    vim.cmd("write") -- Proceed with the write operation for other files
   end,
 })
+
+-- Create a command to handle the common mistype of ":w :w"
+vim.api.nvim_create_user_command("W", function(opts)
+  if opts.args:match("^:w$") then
+    vim.notify('Command ":w :w" corrected to ":w"', vim.log.levels.INFO)
+    vim.cmd("write")
+  else
+    vim.cmd("write " .. opts.args)
+  end
+end, { nargs = "?" })

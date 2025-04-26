@@ -80,6 +80,11 @@ return {
           tailwindcss = function()
             require("lspconfig").tailwindcss.setup({
               filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "php" },
+              tailwindcss = {
+                experimental = {
+                  configFile = "apps/web/src/app/globals.css", -- manual temp
+                },
+              },
             })
           end,
           jsonls = function()
