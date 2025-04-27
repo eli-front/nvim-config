@@ -12,10 +12,10 @@ return {
         -- Conform will run multiple formatters sequentially
         python = { "isort", "black" },
         -- Use a sub-list to run only the first available formatter
-        javascript = { "prettierd", "prettier" },
-        svelte = { "prettierd", "prettier" },
+        javascript = { "prettier" },
+        svelte = { "prettier" },
         html = { "prettier" },
-        java = { "google-java-format" },
+        -- java = { "google-java-format" },
         glsl = { "clang-format" },
         terraform = { "terraform_fmt" },
         tf = { "terraform_fmt" },
