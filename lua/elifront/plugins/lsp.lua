@@ -33,6 +33,27 @@ return {
         end, opts)
         vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        -- <leader>yd to copy the diagnostic message of the item under the cursor
+        vim.keymap.set("n", "<leader>yd", function()
+          local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
+
+          if diagnostic then
+            vim.fn.setreg("", diagnostic.message)
+            vim.notify("Copied diagnostic message to clipboard", vim.log.levels.INFO)
+          else
+            vim.notify("No diagnostic message found under cursor", vim.log.levels.WARN)
+          end
+        end, opts)
+        vim.keymap.set("n", "<leader>cd", function()
+          local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
+
+          if diagnostic then
+            vim.fn.setreg("+", diagnostic.message)
+            vim.notify("Copied diagnostic message to clipboard", vim.log.levels.INFO)
+          else
+            vim.notify("No diagnostic message found under cursor", vim.log.levels.WARN)
+          end
+        end, opts)
       end)
 
       require("mason").setup({})
@@ -124,11 +145,39 @@ return {
               },
             })
           end,
-          eslint = function()
-            require("lspconfig").eslint.setup({
-              cmd = { "eslint", "--stdin" },
-            })
-          end,
+          -- eslint = function()
+          --   local lspconfig = require("lspconfig")
+          --   local util = require("lspconfig.util")
+          --
+          --   lspconfig.eslint.setup({
+          --     -- detect project root
+          --     root_dir = util.root_pattern(
+          --       ".eslintrc",
+          --       ".eslintrc.js",
+          --       ".eslintrc.cjs",
+          --       ".eslintrc.json",
+          --       "eslint.config.js",
+          --       "package.json"
+          --     ),
+          --
+          --     -- make eslint-lsp look in local node_modules first, then fall back to global
+          --     on_new_config = function(config, root_dir)
+          --       local bin_dir = util.path.join(root_dir, "node_modules", ".bin")
+          --       vim.notify("Using ESLint from: " .. bin_dir, vim.log.levels.INFO)
+          --       if vim.fn.isdirectory(bin_dir) == 1 then
+          --         config.cmd_env = config.cmd_env or {}
+          --         config.cmd_env.PATH = bin_dir .. ":" .. vim.env.PATH
+          --       end
+          --     end,
+          --
+          --     settings = {
+          --       eslint = {
+          --         workingDirectories = { mode = "auto" }, -- handle monorepos nicely
+          --         useFlatConfig = true, -- if you're on ESLint 9 flat config
+          --       },
+          --     },
+          --   })
+          -- end,
           zls = function()
             require("lspconfig").zls.setup({
               settings = {
