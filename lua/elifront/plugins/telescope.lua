@@ -17,7 +17,7 @@ return {
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-            ["<C-j>"] = actions.move_selection_next, -- move to next result
+            ["<C-j>"] = actions.move_selection_next,     -- move to next result
           },
         },
       },
@@ -32,6 +32,6 @@ return {
 
     vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
     vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Find git files" })
-    vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "Find word grep" })
+    vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "Find word grep" }) -- requires ripgrep run `brew instal ripgrep`
   end,
 }
