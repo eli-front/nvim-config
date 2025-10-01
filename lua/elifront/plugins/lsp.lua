@@ -98,16 +98,16 @@ return {
               },
             })
           end,
-          tailwindcss = function()
-            require("lspconfig").tailwindcss.setup({
-              filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "php" },
-              tailwindcss = {
-                experimental = {
-                  configFile = "apps/web/src/app/globals.css", -- manual temp
-                },
-              },
-            })
-          end,
+          -- tailwindcss = function()
+          --   require("lspconfig").tailwindcss.setup({
+          --     filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "php" },
+          --     tailwindCSS = {
+          --       experimental = {
+          --         configFile = "apps/web/src/app/globals.css", -- manual temp
+          --       },
+          --     },
+          --   })
+          -- end,
           jsonls = function()
             require("lspconfig").jsonls.setup({
               settings = {
@@ -125,22 +125,22 @@ return {
             require("lspconfig").cssls.setup({
               settings = {
                 css = {
-                  validate = false,
+                  validate = true,
                   lint = {
-                    uknownAtRules = "ignore",
-                  },
+                    unknownAtRules = "ignore",
+                  }
                 },
                 scss = {
-                  validate = false,
+                  validate = true,
                   lint = {
-                    uknownAtRules = "ignore",
-                  },
+                    unknownAtRules = "ignore",
+                  }
                 },
                 less = {
-                  validate = false,
+                  validate = true,
                   lint = {
-                    uknownAtRules = "ignore",
-                  },
+                    unknownAtRules = "ignore",
+                  }
                 },
               },
             })
