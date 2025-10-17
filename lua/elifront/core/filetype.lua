@@ -12,3 +12,11 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "glsl"
   end,
 })
+
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { ".env.*", "*.env.*" },
+  callback = function()
+    vim.bo.filetype = "env"
+  end,
+})

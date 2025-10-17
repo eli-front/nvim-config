@@ -75,6 +75,7 @@ return {
           "svelte",
           "zls",
           "intelephense",
+          "gopls"
         },
         handlers = {
           function(server_name)
