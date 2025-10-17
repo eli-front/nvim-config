@@ -73,7 +73,7 @@ return {
           "tflint",
           "terraformls",
           "svelte",
-          "zls",
+          -- "zls",
           "intelephense",
           "gopls"
         },
@@ -179,28 +179,31 @@ return {
           --     },
           --   })
           -- end,
-          zls = function()
-            require("lspconfig").zls.setup({
-              settings = {
-                zls = {
-                  enable_build_on_save = true,
-                  build_on_save_step = "check",
-                  enable_snippets = true,
-                  enable_ast_check_diagnostics = true,
-                  enable_autofix = false,
-                  enable_import_embedfile_argument_completions = true,
-                  warn_style = true,
-                  enable_semantic_tokens = true,
-                  enable_inlay_hints = true,
-                  inlay_hints_hide_redundant_param_names = true,
-                  inlay_hints_hide_redundant_param_names_last_token = true,
-                  operator_completions = true,
-                  include_at_in_builtins = true,
-                  max_detail_length = 1048576,
-                },
-              },
-            })
-          end,
+          -- zls = function()
+          --   local custom = vim.fn.expand("$HOME/opt/zls-aarch64-macos-0.16.0-dev.22+f486e884/zls")
+          --
+          --   require("lspconfig").zls.setup({
+          --     cmd = { custom },
+          --     settings = {
+          --       zls = {
+          --         enable_build_on_save = true,
+          --         build_on_save_step = "check",
+          --         enable_snippets = true,
+          --         enable_ast_check_diagnostics = true,
+          --         enable_autofix = false,
+          --         enable_import_embedfile_argument_completions = true,
+          --         warn_style = true,
+          --         enable_semantic_tokens = true,
+          --         enable_inlay_hints = true,
+          --         inlay_hints_hide_redundant_param_names = true,
+          --         inlay_hints_hide_redundant_param_names_last_token = true,
+          --         operator_completions = true,
+          --         include_at_in_builtins = true,
+          --         max_detail_length = 1048576,
+          --       },
+          --     },
+          --   })
+          -- end,
           intelephense = function()
             require("lspconfig").intelephense.setup({
               settings = {
@@ -232,6 +235,35 @@ return {
           end,
         },
       })
+
+      -- manual setup for local zls
+      do
+        if vim.fn.executable("zls") == 0 then
+          vim.notify("No locally installed zls")
+        else
+          require("lspconfig").zls.setup({
+            cmd = { "zls" },
+            settings = {
+              zls = {
+                enable_build_on_save = true,
+                build_on_save_step = "check",
+                enable_snippets = true,
+                enable_ast_check_diagnostics = true,
+                enable_autofix = false,
+                enable_import_embedfile_argument_completions = true,
+                warn_style = true,
+                enable_semantic_tokens = true,
+                enable_inlay_hints = true,
+                inlay_hints_hide_redundant_param_names = true,
+                inlay_hints_hide_redundant_param_names_last_token = true,
+                operator_completions = true,
+                include_at_in_builtins = true,
+                max_detail_length = 1048576,
+              },
+            },
+          })
+        end
+      end
     end,
   },
 }
