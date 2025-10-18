@@ -79,10 +79,10 @@ return {
         },
         handlers = {
           function(server_name)
-            require("lspconfig")[server_name].setup({})
+            vim.lsp.config(server_name, {})
           end,
           html = function()
-            require("lspconfig").html.setup({
+            vim.lsp.config("html", {
               filetypes = { "html", "php" },
               settings = {
                 html = {
@@ -99,18 +99,8 @@ return {
               },
             })
           end,
-          -- tailwindcss = function()
-          --   require("lspconfig").tailwindcss.setup({
-          --     filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "php" },
-          --     tailwindCSS = {
-          --       experimental = {
-          --         configFile = "apps/web/src/app/globals.css", -- manual temp
-          --       },
-          --     },
-          --   })
-          -- end,
           jsonls = function()
-            require("lspconfig").jsonls.setup({
+            vim.lsp.config("jsonls", {
               settings = {
                 json = {
                   format = {
@@ -123,7 +113,7 @@ return {
             })
           end,
           cssls = function()
-            require("lspconfig").cssls.setup({
+            vim.lsp.config("cssls", {
               settings = {
                 css = {
                   validate = true,
@@ -146,66 +136,8 @@ return {
               },
             })
           end,
-          -- eslint = function()
-          --   local lspconfig = require("lspconfig")
-          --   local util = require("lspconfig.util")
-          --
-          --   lspconfig.eslint.setup({
-          --     -- detect project root
-          --     root_dir = util.root_pattern(
-          --       ".eslintrc",
-          --       ".eslintrc.js",
-          --       ".eslintrc.cjs",
-          --       ".eslintrc.json",
-          --       "eslint.config.js",
-          --       "package.json"
-          --     ),
-          --
-          --     -- make eslint-lsp look in local node_modules first, then fall back to global
-          --     on_new_config = function(config, root_dir)
-          --       local bin_dir = util.path.join(root_dir, "node_modules", ".bin")
-          --       vim.notify("Using ESLint from: " .. bin_dir, vim.log.levels.INFO)
-          --       if vim.fn.isdirectory(bin_dir) == 1 then
-          --         config.cmd_env = config.cmd_env or {}
-          --         config.cmd_env.PATH = bin_dir .. ":" .. vim.env.PATH
-          --       end
-          --     end,
-          --
-          --     settings = {
-          --       eslint = {
-          --         workingDirectories = { mode = "auto" }, -- handle monorepos nicely
-          --         useFlatConfig = true, -- if you're on ESLint 9 flat config
-          --       },
-          --     },
-          --   })
-          -- end,
-          -- zls = function()
-          --   local custom = vim.fn.expand("$HOME/opt/zls-aarch64-macos-0.16.0-dev.22+f486e884/zls")
-          --
-          --   require("lspconfig").zls.setup({
-          --     cmd = { custom },
-          --     settings = {
-          --       zls = {
-          --         enable_build_on_save = true,
-          --         build_on_save_step = "check",
-          --         enable_snippets = true,
-          --         enable_ast_check_diagnostics = true,
-          --         enable_autofix = false,
-          --         enable_import_embedfile_argument_completions = true,
-          --         warn_style = true,
-          --         enable_semantic_tokens = true,
-          --         enable_inlay_hints = true,
-          --         inlay_hints_hide_redundant_param_names = true,
-          --         inlay_hints_hide_redundant_param_names_last_token = true,
-          --         operator_completions = true,
-          --         include_at_in_builtins = true,
-          --         max_detail_length = 1048576,
-          --       },
-          --     },
-          --   })
-          -- end,
           intelephense = function()
-            require("lspconfig").intelephense.setup({
+            vim.lsp.config("intelephense", {
               settings = {
                 intelephense = {
                   stubs = {
@@ -224,7 +156,7 @@ return {
             })
           end,
           ts_ls = function()
-            require("lspconfig").ts_ls.setup({
+            vim.lsp.config("ts_ls", {
               init_options = {
                 preferences = {
                   importModuleSpecifier = "non-relative",
@@ -241,7 +173,7 @@ return {
         if vim.fn.executable("zls") == 0 then
           vim.notify("No locally installed zls")
         else
-          require("lspconfig").zls.setup({
+          vim.lsp.config("zls", {
             cmd = { "zls" },
             settings = {
               zls = {
