@@ -11,6 +11,38 @@ return {
       { "williamboman/mason-lspconfig.nvim" },
       { "b0o/schemastore.nvim" },
     },
+    -- opts = function()
+    --   vim.keymap.set("n", "<leader>ld", function()
+    --     vim.diagnostic.open_float(nil, {
+    --       focus = false,
+    --       source = true,
+    --       header = "Diagnostics",
+    --     })
+    --   end)
+    --
+    --   vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action)
+    --   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+    --
+    --   vim.keymap.set("n", "<leader>yd", function()
+    --     local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
+    --     if diagnostic then
+    --       vim.fn.setreg("", diagnostic.message)
+    --       vim.notify("Copied diagnostic message to unnamed register", vim.log.levels.INFO)
+    --     else
+    --       vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
+    --     end
+    --   end)
+    --
+    --   vim.keymap.set("n", "<leader>cd", function()
+    --     local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
+    --     if diagnostic then
+    --       vim.fn.setreg("+", diagnostic.message)
+    --       vim.notify("Copied diagnostic message to clipboard", vim.log.levels.INFO)
+    --     else
+    --       vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
+    --     end
+    --   end)
+    -- end,
     config = function()
       -- Setup diagnostics
       vim.diagnostic.config({
@@ -20,45 +52,65 @@ return {
         severity_sort = true,
       })
 
+
+      local opts = {}
+
+      vim.keymap.set("n", "<leader>ld", function()
+        vim.diagnostic.open_float(nil, {
+          focus = false,
+          source = true,
+          header = "Diagnostics",
+        })
+      end, opts)
+
       -- Keymaps for LSP actions
-      local on_attach = function(_, bufnr)
-        local opts = { buffer = bufnr }
+      -- local on_attach = function(_, bufnr)
+      -- local opts = { buffer = bufnr }
 
-        vim.keymap.set("n", "<leader>ld", function()
-          vim.diagnostic.open_float(nil, {
-            focus = false,
-            source = true,
-            header = "Diagnostics",
-          })
-        end, opts)
+      vim.keymap.set("n", "<leader>ld", function()
+        vim.diagnostic.open_float(nil, {
+          focus = false,
+          source = true,
+          header = "Diagnostics",
+        })
+      end, opts)
 
-        vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 
-        vim.keymap.set("n", "<leader>yd", function()
-          local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
-          if diagnostic then
-            vim.fn.setreg("", diagnostic.message)
-            vim.notify("Copied diagnostic message to unnamed register", vim.log.levels.INFO)
-          else
-            vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
-          end
-        end, opts)
+      vim.keymap.set("n", "<leader>yd", function()
+        local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
+        if diagnostic then
+          vim.fn.setreg("", diagnostic.message)
+          vim.notify("Copied diagnostic message to unnamed register", vim.log.levels.INFO)
+        else
+          vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
+        end
+      end, opts)
 
-        vim.keymap.set("n", "<leader>cd", function()
-          local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
-          if diagnostic then
-            vim.fn.setreg("+", diagnostic.message)
-            vim.notify("Copied diagnostic message to clipboard", vim.log.levels.INFO)
-          else
-            vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
-          end
-        end, opts)
-      end
+      vim.keymap.set("n", "<leader>cd", function()
+        local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
+        -- if diagnostic then
+        if diagnostic[1] then
+          -- all of the diagnostics messages under the cursor joined
+          local joined_messages = table.concat(vim.tbl_map(function(d)
+            return d.message
+          end, diagnostic), "\n")
+
+          -- vim.fn.setreg("+", diagnostic.message)
+          vim.fn.setreg("+", joined_messages)
+          vim.notify("Copied diagnostic message to clipboard", vim.log.levels.INFO)
+        else
+          vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
+        end
+      end, opts)
+      -- end
+
 
       -- Setup Mason
       require("mason").setup({})
       require("mason-lspconfig").setup({
+        automatic_enable = true,
         ensure_installed = {
           "pyright",
           "lua_ls",
@@ -80,14 +132,13 @@ return {
         handlers = {
           function(server_name)
             vim.lsp.config(server_name, {
-              on_attach = on_attach,
+              -- on_attach = on_attach,
               capabilities = require("cmp_nvim_lsp").default_capabilities(),
             })
           end,
 
           html = function()
             vim.lsp.config("html", {
-              on_attach = on_attach,
               filetypes = { "html", "php" },
               settings = {
                 html = {
@@ -100,7 +151,6 @@ return {
 
           jsonls = function()
             vim.lsp.config("jsonls", {
-              on_attach = on_attach,
               settings = {
                 json = {
                   format = { enable = true },
@@ -113,7 +163,6 @@ return {
 
           cssls = function()
             vim.lsp.config("cssls", {
-              on_attach = on_attach,
               settings = {
                 css = { validate = true, lint = { unknownAtRules = "ignore" } },
                 scss = { validate = true, lint = { unknownAtRules = "ignore" } },
@@ -124,7 +173,6 @@ return {
 
           intelephense = function()
             vim.lsp.config("intelephense", {
-              on_attach = on_attach,
               settings = {
                 intelephense = {
                   stubs = {
@@ -145,7 +193,7 @@ return {
 
           ts_ls = function()
             vim.lsp.config("ts_ls", {
-              on_attach = on_attach,
+              -- on_attach = on_attach,
               init_options = {
                 preferences = {
                   importModuleSpecifier = "non-relative",
@@ -160,7 +208,6 @@ return {
       -- Optional ZLS setup
       if vim.fn.executable("zls") == 1 then
         vim.lsp.config("zls", {
-          on_attach = on_attach,
           cmd = { "zls" },
           filetypes = { "zig", "zir" },
           settings = {
