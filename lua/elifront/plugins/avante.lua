@@ -5,51 +5,6 @@ return {
     lazy = false,
     opts = {
       provider = "copilot",
-      -- copilot = {
-      --   __inherited_from = "copilot",
-      --   endpoint = "https://api.githubcopilot.com",
-      --   model = "claude-3.7-sonnet",
-      --   display_name = "copilot/claude-3.7",
-      --   proxy = nil,
-      --   allow_insecure = false,
-      --   timeout = 30000,
-      --   temperature = 0,
-      --   max_tokens = 20480,
-      -- },
-      providers = {
-        copilot = {
-          endpoint = "https://api.githubcopilot.com",
-          model = "claude-3.7-sonnet",
-          display_name = "copilot/claude-3.7",
-          proxy = nil,
-          allow_insecure = false,
-          timeout = 30000,
-          extra_request_body = {
-            temperature = 0,
-            max_tokens = 20480,
-          },
-        },
-        ["claude-3.7"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/claude-3.7",
-          model = "claude-3.7-sonnet",
-        },
-        ["claude-3.5"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/claude-3.5",
-          model = "claude-3.5-sonnet",
-        },
-        ["gpt-o3-mini"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/gpt-o3-mini",
-          model = "gpt-o3-mini",
-        },
-        ["gpt-4o"] = {
-          __inherited_from = "copilot",
-          display_name = "copilot/gpt-4o",
-          model = "gpt-4o",
-        },
-      },
       auto_suggestions_provider = "claude",
       suggestion = {
         debounce = 5000,

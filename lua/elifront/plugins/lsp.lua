@@ -11,38 +11,6 @@ return {
       { "williamboman/mason-lspconfig.nvim" },
       { "b0o/schemastore.nvim" },
     },
-    -- opts = function()
-    --   vim.keymap.set("n", "<leader>ld", function()
-    --     vim.diagnostic.open_float(nil, {
-    --       focus = false,
-    --       source = true,
-    --       header = "Diagnostics",
-    --     })
-    --   end)
-    --
-    --   vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action)
-    --   vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-    --
-    --   vim.keymap.set("n", "<leader>yd", function()
-    --     local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
-    --     if diagnostic then
-    --       vim.fn.setreg("", diagnostic.message)
-    --       vim.notify("Copied diagnostic message to unnamed register", vim.log.levels.INFO)
-    --     else
-    --       vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
-    --     end
-    --   end)
-    --
-    --   vim.keymap.set("n", "<leader>cd", function()
-    --     local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
-    --     if diagnostic then
-    --       vim.fn.setreg("+", diagnostic.message)
-    --       vim.notify("Copied diagnostic message to clipboard", vim.log.levels.INFO)
-    --     else
-    --       vim.notify("No diagnostic message under cursor", vim.log.levels.WARN)
-    --     end
-    --   end)
-    -- end,
     config = function()
       -- Setup diagnostics
       vim.diagnostic.config({
@@ -63,20 +31,8 @@ return {
         })
       end, opts)
 
-      -- Keymaps for LSP actions
-      -- local on_attach = function(_, bufnr)
-      -- local opts = { buffer = bufnr }
-
-      vim.keymap.set("n", "<leader>ld", function()
-        vim.diagnostic.open_float(nil, {
-          focus = false,
-          source = true,
-          header = "Diagnostics",
-        })
-      end, opts)
-
       vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
 
       vim.keymap.set("n", "<leader>yd", function()
         local diagnostic = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })[1]
