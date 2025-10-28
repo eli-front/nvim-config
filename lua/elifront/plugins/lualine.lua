@@ -74,7 +74,7 @@ return {
 
     require('lualine').setup {
       options = {
-        theme = 'ayu_mirage',
+        theme = nil,
         section_separators = '',
         component_separators = '',
       },
@@ -82,8 +82,8 @@ return {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
-        lualine_x = { weather_component, 'lsp_status', 'filetype' },
-        lualine_y = { 'progress' },
+        lualine_x = { 'lsp_status', 'filetype' },
+        lualine_y = { weather_component, --[[ 'progress' ]] },
         lualine_z = { 'location' }
       }
     }

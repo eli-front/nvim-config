@@ -1,17 +1,24 @@
 return {
   'tamton-aquib/duck.nvim',
   config = function()
-    vim.keymap.set('n', '<leader>dd', function() require("duck").hatch("🐿️") end, {
-      desc = "Hatch a chipmunk"
+    vim.keymap.set('n', '<leader>dd', function() require("duck").hatch("🎃") end, {
+      desc = "Hatch"
     })
     vim.keymap.set('n', '<leader>dk', function() require("duck").cook() end, {
-      desc = "Cook a chipmunk"
+      desc = "Cook"
     })
     vim.keymap.set('n', '<leader>da', function() require("duck").cook_all() end, {
-      desc = "Cook all chipmunks"
+      desc = "Cook all"
     })
 
-    -- hatch custom from user input
+    vim.keymap.set('n', '<leader>dt', function()
+      for _ = 1, 10 do
+        require("duck").hatch("🎃")
+      end
+    end, {
+      desc = "Hatch x10"
+    })
+
     vim.keymap.set('n', '<leader>dc', function()
       local input = vim.fn.input("Enter an emoji for the chipmunk: ")
       if input ~= "" then
@@ -20,7 +27,7 @@ return {
         vim.notify("No emoji entered", vim.log.levels.WARN)
       end
     end, {
-      desc = "Hatch a custom chipmunk"
+      desc = "Hatch a custom"
     })
   end
 }
