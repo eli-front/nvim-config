@@ -20,7 +20,7 @@ return {
     })
 
     vim.keymap.set('n', '<leader>dc', function()
-      local input = vim.fn.input("Enter an emoji for the chipmunk: ")
+      local input = vim.fn.input("Enter an emoji for the ducking: ")
       if input ~= "" then
         require("duck").hatch(input)
       else
