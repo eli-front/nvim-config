@@ -1,7 +1,7 @@
 return {
   'tamton-aquib/duck.nvim',
   config = function()
-    vim.keymap.set('n', '<leader>dd', function() require("duck").hatch("🎃") end, {
+    vim.keymap.set('n', '<leader>dd', function() require("duck").hatch("🐿️") end, {
       desc = "Hatch"
     })
     vim.keymap.set('n', '<leader>dk', function() require("duck").cook() end, {
@@ -13,7 +13,7 @@ return {
 
     vim.keymap.set('n', '<leader>dt', function()
       for _ = 1, 10 do
-        require("duck").hatch("🎃")
+        require("duck").hatch("🐿️")
       end
     end, {
       desc = "Hatch x10"
