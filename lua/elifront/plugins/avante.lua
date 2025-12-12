@@ -17,6 +17,11 @@ return {
           env = false,
         },
       },
+      providers = {
+        copilot = {
+          model = "gpt-4.1",
+        }
+      }
     },
     version = false,
     keys = {
