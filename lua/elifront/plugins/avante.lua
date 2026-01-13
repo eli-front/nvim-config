@@ -5,7 +5,7 @@ return {
     lazy = false,
     opts = {
       provider = "copilot",
-      auto_suggestions_provider = "claude",
+      auto_suggestions_provider = false,
       suggestion = {
         debounce = 5000,
         throttle = 600,
