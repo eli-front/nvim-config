@@ -46,6 +46,9 @@ return {
         },
         ft = { "markdown", "Avante" },
       },
+      behaviour = {
+        auto_suggestions = false,
+      }
       -- Uncomment carefully if you want to use:
       -- {
       --   "HakonHarnes/img-clip.nvim",
