@@ -161,6 +161,17 @@ return {
         },
       })
 
+      -- sourcekit-lsp ships with the Swift toolchain rather than Mason.
+      if vim.fn.executable("sourcekit-lsp") == 1 then
+        vim.lsp.config("sourcekit", {
+          filetypes = { "swift" },
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        })
+        vim.lsp.enable("sourcekit")
+      else
+        vim.notify("No locally installed sourcekit-lsp", vim.log.levels.WARN)
+      end
+
       -- Optional ZLS setup
       if vim.fn.executable("zls") == 1 then
         vim.lsp.config("zls", {
